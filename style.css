@@ -1,0 +1,251 @@
+:root{
+  --bg:#070a14; --panel:#0b1220; --line:#243047; --text:#e5e7eb; --muted:#a8b3cf;
+  --accent:#a78bfa;
+}
+
+html,body{
+  height:100%;
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:system-ui, sans-serif;
+}
+
+.wrap{
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+}
+
+.frame{
+  width:min(920px, 96vw);
+  display:grid;
+  grid-template-columns: 1fr 280px;
+  gap:14px;
+  align-items:start;
+}
+
+canvas{
+  width:100%;
+  height:auto;
+  display:block;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background: radial-gradient(circle at 50% 40%, #101a3a, #070a14 70%);
+}
+
+.side{ width:280px; }
+
+.side h1{
+  margin:0 0 10px;
+  font-size:20px;
+}
+
+.panel{
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:10px;
+  margin:10px 0;
+  background:rgba(255,255,255,0.02);
+}
+
+.panel h2{
+  margin:0 0 8px;
+  font-size:14px;
+  color:var(--muted);
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  padding:6px 0;
+  border-bottom:1px dashed rgba(255,255,255,0.08);
+}
+.row:last-child{ border-bottom:none; }
+
+.k{ color:var(--muted); }
+.v{ font-variant-numeric: tabular-nums; }
+
+ul{
+  margin:0;
+  padding-left:18px;
+  color:var(--muted);
+  line-height:1.6;
+}
+.note{
+  margin:0;
+  color:var(--muted);
+  line-height:1.6;
+}
+
+/* スクロール誤爆減らす */
+html, body {
+  overscroll-behavior: none;
+  touch-action: manipulation;
+}
+
+/* タッチUI */
+.touch-ui{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display:none;
+  padding:10px;
+  gap:12px;
+  align-items:center;
+  justify-content:space-between;
+  z-index:9999;
+  pointer-events:auto;
+}
+
+.touch-ui button{ pointer-events:auto; }
+
+/* 十字キー */
+.dpad{
+  width: 150px;
+  height: 150px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 8px;
+}
+.pad{
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(20,25,40,0.85);
+  color: rgba(255,255,255,0.9);
+  border-radius: 14px;
+  font-size: 18px;
+}
+.pad.up{ grid-column:2; grid-row:1; }
+.pad.left{ grid-column:1; grid-row:2; }
+.pad.right{ grid-column:3; grid-row:2; }
+.pad.down{ grid-column:2; grid-row:3; }
+
+/* 右側ボタン */
+.btns{
+  display:flex;
+  gap: 10px;
+  align-items: center;
+}
+.btn{
+  min-width: 92px;
+  height: 54px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(20,25,40,0.85);
+  color: rgba(255,255,255,0.9);
+  font-weight: 800;
+}
+.btn.bomb{ min-width: 104px; }
+
+.menuBtns{
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(720px, 96vw);
+  display: none;
+  gap: 8px;
+  justify-content: center;
+  z-index: 60;
+  pointer-events: none;
+}
+.menuBtns .btn{ pointer-events: auto; }
+
+.btn.mini{
+  min-width: 88px;
+  height: 44px;
+  border-radius: 14px;
+  font-weight: 800;
+}
+.btn.start{
+  min-width: 120px;
+  height: 44px;
+  border-radius: 14px;
+  font-weight: 900;
+}
+
+/* スマホ */
+@media (hover: none) and (pointer: coarse){
+  .frame{ grid-template-columns: 1fr; }
+  .side{ display:none; }
+}
+
+@media (max-width: 900px){
+  .frame{ grid-template-columns: 1fr; }
+  .side{ display:none; }
+
+  .wrap{
+    padding:
+      10px
+      max(10px, env(safe-area-inset-right))
+      calc(10px + env(safe-area-inset-bottom))
+      max(10px, env(safe-area-inset-left));
+  }
+
+  canvas{
+    width: min(92vw, 560px);
+    max-height: 68vh;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .touch-ui{
+    display:flex;
+    padding: 10px;
+    padding-bottom: calc(10px + env(safe-area-inset-bottom));
+  }
+
+  .menuBtns{
+    top: auto;
+    bottom: calc(160px + env(safe-area-inset-bottom));
+    left: auto;
+    right: 10px;
+    transform: none;
+    width: auto;
+    display: none;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: flex-end;
+    pointer-events: none;
+  }
+
+  .menuBtns .btn{
+    min-width: 82px;
+    height: 40px;
+    border-radius: 14px;
+    font-size: 13px;
+    padding: 0 10px;
+  }
+  .menuBtns .btn.start{
+    min-width: 120px;
+    font-size: 14px;
+  }
+
+  body{
+    -webkit-user-select: none;
+    user-select: none;
+  }
+}
+
+/* control mode */
+.ctrl-mode{
+  display:flex;
+  gap:14px;
+  align-items:center;
+  flex-wrap:wrap;
+  margin-top:8px;
+}
+.ctrl-mode label{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  cursor:pointer;
+  user-select:none;
+}
+.note.small{
+  font-size:12px;
+  opacity:.85;
+  margin:8px 0 0;
+}

@@ -1,0 +1,96 @@
+<!!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mini Danmaku</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="frame">
+      <canvas id="c" width="720" height="900"></canvas>
+
+      <aside class="side">
+        <h1>Mini Danmaku</h1>
+
+        <div class="panel">
+          <div class="row"><span class="k">状態</span><span id="uiState" class="v">MENU</span></div>
+          <div class="row"><span class="k">難易度</span><span id="uiDiff" class="v">normal</span></div>
+          <div class="row"><span class="k">スコア</span><span id="uiScore" class="v">0</span></div>
+
+          <div class="row"><span class="k">残機</span><span id="uiLives" class="v">3</span></div>
+          <div class="row"><span class="k">ボム</span><span id="uiBombs" class="v">3</span></div>
+          <div class="row"><span class="k">スペル</span><span id="uiSpells" class="v">0</span></div>
+
+          <div class="row"><span class="k">GRAZE</span><span id="uiGraze" class="v">0</span></div>
+          <div class="row"><span class="k">POWER</span><span id="uiPower" class="v">1</span></div>
+
+          <div class="row"><span class="k">敵</span><span id="uiEnemy" class="v">-</span></div>
+          <div class="row"><span class="k">ハイスコア</span><span id="uiHi" class="v">0</span></div>
+          <div class="row"><span class="k">リプレイ</span><span id="uiReplay" class="v">-</span></div>
+          <div class="row"><span class="k">カード</span><span id="uiCards" class="v">-</span></div>
+          <div class="row"><span class="k">ボスフェーズ</span><span id="uiPhase" class="v">-</span></div>
+        </div>
+
+        
+        <div class="panel">
+          <h2>操作モード</h2>
+          <div class="ctrl-mode" role="radiogroup" aria-label="control mode">
+            <label><input type="radio" name="ctrlMode" value="keyboard"> キー</label>
+            <label><input type="radio" name="ctrlMode" value="mouse"> マウス</label>
+          </div>
+          <p class="note small" id="uiCtrlHint"></p>
+        </div>
+<div class="panel">
+          <h2>操作</h2>
+          <ul>
+            <li>移動：矢印 / WASD</li>
+            <li>低速：Shift（当たり判定表示）</li>
+            <li>ボム：X</li>
+            <li>スペル：C（敵撃破で +1）</li>
+            <li>開始：Enter（メニューで難易度選択）</li>
+            <li>難易度変更：↑↓（メニュー）</li>
+            <li>戻る：Esc</li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <p class="note">
+            Easy→Normal→Hard→Expert→Lunatic<br/>
+            低速で当たり判定表示 / かすり(GRAZE) / パワー(P)でショット強化<br/>
+            画面上部の回収ラインより上でアイテム自動回収
+          </p>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <div class="touch-ui" id="touchUI" aria-label="touch controls">
+    <!-- ★MENU操作 -->
+    <div class="menuBtns" id="menuBtns">
+      <button class="btn mini" data-act="diffUp">DIFF ▲</button>
+      <button class="btn mini" data-act="diffDown">DIFF ▼</button>
+      <button class="btn start" data-act="start">START</button>
+      <button class="btn mini" data-act="replay">REPLAY</button>
+      <button class="btn mini" data-act="menu">MENU</button>
+    </div>
+
+    <!-- プレイ操作 -->
+    <div class="dpad" id="dpad">
+      <button class="pad up"    data-act="up">▲</button>
+      <button class="pad left"  data-act="left">$25C0</button>
+      <button class="pad right" data-act="right">$25B6</button>
+      <button class="pad down"  data-act="down">▼</button>
+    </div>
+
+    <div class="btns">
+      <button class="btn slow" data-act="slow">SLOW</button>
+      <button class="btn bomb" data-act="bomb">BOMB</button>
+      <button class="btn card" data-act="card">CARD</button>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
